@@ -1,17 +1,20 @@
 package ClassFiles;
-
-class Course {
-	int number;
-	String name;
-	Department department;
+import Database.*;
+public class Course {
+	public int number;
+	public String name;
+	public String department;
 	private Instructor instructor;
-	byte term;
-	byte credits;
-	String textbooks[];
-	Classroom classroom;
-	int classroom_id;
-	String time;
-	Course(int id){
+	public int term;
+	public int credits;
+	public String textbooks;
+	public int classroom_id;
+	public Time time;
+	public int numberOfStudents;
+	public Course(int id){
 		//access database
+		//Time time = new Time();
+		AccessCourse access=new AccessCourse();
+		access.getCourse(id, this);
 	}
 }

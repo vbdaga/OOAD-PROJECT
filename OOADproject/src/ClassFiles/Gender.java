@@ -1,10 +1,10 @@
 package ClassFiles;
 
-class Gender {
-	boolean g;
+public class Gender {
+	public boolean g;
 	// true if male
 	// false if female
-	Gender(boolean f){
+	public Gender(boolean f){
 		g=f;
 	}
 	String get(){

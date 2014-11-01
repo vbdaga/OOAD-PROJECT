@@ -14,12 +14,14 @@ public class Login {
 			pass = in.nextLine();
 			if(!chl.check(user, pass)){
 				System.out.println("Invalid login... :(");
+				break;
 			}
 			else{
 				System.out.println("Congo");
-				break;
+				//break;
 			}
 		}
+		Student c=new Student();
 		
 	}
 }
