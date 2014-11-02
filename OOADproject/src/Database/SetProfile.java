@@ -37,14 +37,16 @@ catch(Exception e){
 	
 }
 	}
-public void SetProfileInfo(Profile profile,int id) {
+public void SetProfileInfo(Profile profile,int id,boolean isStudent) {
  
  
  try{
     int gender = 0;
     if(profile.gender.g)gender=1;
     String dob = profile.dateOfBirth.year+"-"+profile.dateOfBirth.month+"-"+profile.dateOfBirth.day;
-    String sql = "INSERT INTO profile VALUES ( "+id+" , \'"+profile.firstName+"\' , \'"+profile.lastName+"\' , "+gender+" , \'"+profile.department.name+"\' , \'"+dob+"\' , \'"+profile.address+" \' )";
+    String sql ;
+    sql= "INSERT INTO profile VALUES ( "+id+" , \'"+profile.firstName+"\' , \'"+profile.lastName+"\' , "+gender+" , \'"+profile.department.name+"\' , \'"+dob+"\' , \'"+profile.address+" \' )";
+   
    // System.out.println(sql);
     stmt.executeUpdate(sql);
     //STEP 5: Extract data from result set

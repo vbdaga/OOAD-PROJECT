@@ -30,9 +30,11 @@ import ClassFiles.DOB;
 import ClassFiles.Department;
 import ClassFiles.Gender;
 import ClassFiles.Profile;
+import ClassFiles.*;
  
 public class Registration
 {
+	private boolean isStudent;
 	protected Shell shlPutIdHere;
 	private static Text fNametxt;
 	private static Text lNametxt;
@@ -44,11 +46,16 @@ public class Registration
 	private static CCombo ddCombo,mmCombo,yyCombo;
 	private static Button RBmale,RBfemale;
 	private Label errorLabel;
+	private Label enrolledLabel;
+	private Text enrolltext;
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	public void open() {
+	public void open(boolean isStudenttem) {
 		Display display = Display.getDefault();
+		
+		isStudent = isStudenttem;
+		//System.out.println(isStudenttem);
 		createContents(display);
 		shlPutIdHere.open();
 		shlPutIdHere.layout();
@@ -96,7 +103,7 @@ public class Registration
 		addr.setBounds(21, 425, 149, 35);
 		
 		Button btnRegister = new Button(profileGroup, SWT.NONE);
-		btnRegister.setBounds(152, 593, 105, 35);
+		btnRegister.setBounds(152, 642, 105, 35);
 		btnRegister.setText("Register");
 		
 		Label LoginIDL = new Label(profileGroup, SWT.NONE);
@@ -169,6 +176,16 @@ public class Registration
 		errorLabel.setVisible(false);
 		errorLabel.setBounds(55, 66, 334, 25);
 		errorLabel.setText("Error!!!!!!  your passwords didnot match..");
+		
+		enrolledLabel = new Label(profileGroup, SWT.NONE);
+		enrolledLabel.setText("Enrolled Year");
+		enrolledLabel.setBounds(21, 601, 149, 35);
+		enrolledLabel.setVisible(isStudent);
+		
+		//System.out.println(isStudent);
+		enrolltext = new Text(profileGroup, SWT.NONE);
+		enrolltext.setBounds(176, 593, 264, 31);
+		enrolltext.setVisible(isStudent);
 		profileGroup.setTabList(new Control[]{btnRegister, fNametxt, lNametxt, logintxt, passtxt, repasstxt, dpttxt, addresstxt, RBmale, RBfemale, ddCombo, mmCombo, yyCombo});
 		
 		
@@ -176,7 +193,7 @@ public class Registration
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if(passtxt.getText().equals(repasstxt.getText())){
-					Profile profile =new Profile();
+					Student_Profile profile =new Student_Profile();
 					profile.firstName = fNametxt.getText();
 					profile.lastName = lNametxt.getText();
 					profile.gender = new Gender();
@@ -188,7 +205,16 @@ public class Registration
 					profile.department = new Department();
 					profile.department.name=dpttxt.getText();
 					profile.address = addresstxt.getText();
-					profile.setProfile(profile, Integer.parseInt(logintxt.getText()), passtxt.getText());
+					if(isStudent){
+						//System.out.println("Here");
+						Student student = new Student();
+						profile.enrolledYear = Integer.parseInt(enrolltext.getText());
+						student.setStudent(profile,Integer.parseInt(logintxt.getText()),passtxt.getText());
+					}
+					else{
+						Instructor instruc = new Instructor();
+						instruc.setInstructor(profile,Integer.parseInt(logintxt.getText()),passtxt.getText());
+					}
 					Welcome welcome = new Welcome();
 					shlPutIdHere.close();
 					welcome.open();
@@ -199,6 +225,7 @@ public class Registration
 			}
 		});
 		shlPutIdHere.open();
+		
 		while (!shlPutIdHere.isDisposed ()) {
 			if (!display.readAndDispatch ()) display.sleep ();
 		}

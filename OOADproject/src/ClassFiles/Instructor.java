@@ -17,17 +17,20 @@ public class Instructor {
 		}
 		profile = new Profile(id);
 	}
+	public Instructor() {
+		// TODO Auto-generated constructor stub
+	}
 	public Profile getProfile(){
 		return profile;
 	}
 	public Course[] getCourses(){
 		return course;
 	}
-	void setInstructor(Profile prof,int id){
+	public void setInstructor(Profile prof,int id,String pass){
 		SetInstructor instruct = new SetInstructor();
 		instruct.SetInstructorInfo(id);
 		SetProfile access = new SetProfile();
-		access.SetProfileInfo(prof, id);
+		access.SetProfileInfo(prof, id,false);
 	}
 }
 // direct access faculty id

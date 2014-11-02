@@ -66,6 +66,7 @@ public class Welcome {
 		password = new Text(INSTI, SWT.BORDER);
 		password.setBounds(153, 133, 93, 21);
 		password.setVisible(false);
+		password.setEchoChar('*');
 		
 		final Label stuLabel = new Label(INSTI, SWT.NONE);
 		stuLabel.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
@@ -101,19 +102,27 @@ public class Welcome {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				Registration reg=new Registration();
+				boolean temp = studentID.getVisible();
+				//System.out.println(temp);
 				INSTI.close();
-				reg.open();
+				//reg.isStudent = studentID.getVisible();
+				reg.open(temp);
 			}
 		});
 		registerButton.setBounds(183, 226, 63, 21);
 		registerButton.setText("Register");
 		registerButton.setVisible(false);
 		
-		
-		
 		Button instructorButton = new Button(INSTI, SWT.NONE);
 		instructorButton.setBounds(63, 23, 136, 25);
 		instructorButton.setText("Instructors Login");
+		
+		final Label errorM = new Label(INSTI, SWT.NONE);
+		errorM.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
+		errorM.setFont(SWTResourceManager.getFont("Segoe UI", 9, SWT.NORMAL));
+		errorM.setBounds(153, 54, 92, 21);
+		errorM.setText("incorrect login!!!!!");
+		errorM.setVisible(false);
 		instructorButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -149,7 +158,7 @@ public class Welcome {
 			public void widgetSelected(SelectionEvent e) {
 				String passw;
 				int user;
-				boolean isStudent=true;;
+				boolean isStudent=true;
 				if(studentID.getVisible())user = Integer.parseInt(studentID.getText());
 				else {
 					user = Integer.parseInt(instructorID.getText());
@@ -162,10 +171,9 @@ public class Welcome {
 					INSTI.close();
 					next.open();
 				}
-				else;//show error message 
+				else errorM.setVisible(true);//show error message 
 			}
 		});
 
 	}
-
 }

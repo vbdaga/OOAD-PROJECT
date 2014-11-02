@@ -21,7 +21,7 @@ public class Student {
 			int course_id;//from database
 			int cid=i+1;
 			course_id = access.getCourse(id,cid);
-			System.out.println(course_id);
+			//System.out.println(course_id);
 			course[i]=new Course(course_id);
 			//System.out.println(course[i].number);
 		}
@@ -33,10 +33,10 @@ public class Student {
 	public Course[] getCourses(){
 		return course;
 	}
-	void setStudent(Student_Profile prof,int id){
+	public void setStudent(Student_Profile prof,int id,String pass){
 		SetStudent access = new SetStudent();
 		access.setStudentInfo(id, prof);
 		Student_Profile student = new Student_Profile();
-		student.setStudent_Profile(prof,id);
+		student.setStudent_Profile(prof, id, pass);
 	}
 }

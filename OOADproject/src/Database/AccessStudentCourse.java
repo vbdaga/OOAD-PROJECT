@@ -53,7 +53,7 @@ public int getCourse(int id,int courseNumber) {
     	val = rs.getInt(column);
     	//System.out.println(val);
     	///rs.close();
-    	System.out.println(val);
+    	//System.out.println(val);
 
      }
    // rs.close();

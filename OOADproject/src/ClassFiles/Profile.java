@@ -38,7 +38,13 @@ public class Profile {
 	}
 	public void setProfile(Profile profile,int id,String pass){
 		SetProfile access = new SetProfile();
-		access.SetProfileInfo(profile, id);
+		access.SetProfileInfo(profile, id,true);
+		LoginInfo login = new LoginInfo();
+		login.setInfo(id, pass);
+	}
+	public void setProfile(Student_Profile profile,int id,String pass){
+		SetProfile access = new SetProfile();
+		access.SetProfileInfo(profile, id,true);
 		LoginInfo login = new LoginInfo();
 		login.setInfo(id, pass);
 	}

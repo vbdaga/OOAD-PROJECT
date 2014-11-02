@@ -39,10 +39,10 @@ public class Profile_View
 	}
 	protected Shell shlPutIdHere;
 	private static Text txtFrmDatabase;
-	private static Text bookDB1;
-	private static Text bookDB2;
-	private static Text bookDB3;
-	private static Text bookDB4;
+	private static Label bookDB1;
+	private static Label bookDB2;
+	private static Label bookDB3;
+	private static Label bookDB4;
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -51,11 +51,11 @@ public class Profile_View
 		createContents(display);
 		shlPutIdHere.open();
 		shlPutIdHere.layout();
-		while (!shlPutIdHere.isDisposed()) {
+		/*while (!shlPutIdHere.isDisposed()) {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
-		}
+		}*/
 		
 	}
 	public void createContents (Display display) {
@@ -63,7 +63,8 @@ public class Profile_View
 		shlPutIdHere.setSize(478, 748);
 		shlPutIdHere.setText("put id here");
 		shlPutIdHere.setLayout(new FillLayout());
-		System.out.println(idDB);
+		//System.out.println(idDB);
+		
 		Student student = new Student (idDB);
 		Instructor instruc =new Instructor(idDB);
 		//start accessing database here and continue filling info in everything with "from database"
@@ -228,9 +229,8 @@ public class Profile_View
 		noOfStuDB1.setText("from database");
 		noOfStuDB1.setBounds(193, 327, 237, 35);
 		
-		bookDB1 = new Text(cour1grp, SWT.CENTER | SWT.MULTI);
+		bookDB1 = new Label(cour1grp, SWT.CENTER);
 		bookDB1.setText("frm database");
-		bookDB1.setEditable(false);
 		bookDB1.setBounds(193, 215, 237, 106);
 		
 		
@@ -291,9 +291,8 @@ public class Profile_View
 		noOfStuDB2.setText("from database2");
 		noOfStuDB2.setBounds(193, 327, 237, 35);
 		
-		bookDB2 = new Text(cour2grp, SWT.CENTER | SWT.MULTI);
+		bookDB2 = new Label(cour2grp, SWT.CENTER);
 		bookDB2.setText("frm database");
-		bookDB2.setEditable(false);
 		bookDB2.setBounds(193, 215, 237, 106);
 		
 		//cour3
@@ -353,9 +352,8 @@ public class Profile_View
 		noOfStuDB3.setText("from database3");
 		noOfStuDB3.setBounds(193, 327, 237, 35);
 		
-		bookDB3 = new Text(cour3grp, SWT.CENTER | SWT.MULTI);
+		bookDB3 = new Label(cour3grp, SWT.CENTER);
 		bookDB3.setText("frm database");
-		bookDB3.setEditable(false);
 		bookDB3.setBounds(193, 215, 237, 106);
 		
 		
@@ -415,9 +413,8 @@ public class Profile_View
 		noOfStuDB4.setText("from database4");
 		noOfStuDB4.setBounds(193, 327, 237, 35);
 		
-		bookDB4 = new Text(cour4grp, SWT.CENTER | SWT.MULTI);
+		bookDB4 = new Label(cour4grp, SWT.CENTER);
 		bookDB4.setText("frm database");
-		bookDB4.setEditable(false);
 		bookDB4.setBounds(193, 215, 237, 106);
 		
 		
@@ -505,6 +502,10 @@ public class Profile_View
 		lblSorryMaxStrength.setText("Sorry!!!! max strength reached.");
 		lblSorryMaxStrength.setVisible(false);
 		
+		Course course[];
+		if(isStu)course=student.getCourses();
+		else course = instruc.getCourses();
+		
 		course1Button.setEnabled(true);
 		course2Button.setEnabled(true);
 		
@@ -515,10 +516,8 @@ public class Profile_View
 		// and set the data of the courses in the corresponding group 
 		
 		shlPutIdHere.open();
-		Course course[];
-		if(isStu)course=student.getCourses();
-		else course = instruc.getCourses();
-		while (shlPutIdHere.isDisposed ()) {
+		
+		while (!shlPutIdHere.isDisposed ()) {
 			if(course1Button.getSelection()&&course1Button.getEnabled()){
 				cour1grp.setVisible(true);
 				cour2grp.setVisible(false);
