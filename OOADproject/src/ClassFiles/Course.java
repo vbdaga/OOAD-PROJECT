@@ -14,6 +14,7 @@ public class Course {
 	public Course(int id){
 		//access database
 		//Time time = new Time();
+		number = id;
 		AccessCourse access=new AccessCourse();
 		access.getCourse(id, this);
 	}

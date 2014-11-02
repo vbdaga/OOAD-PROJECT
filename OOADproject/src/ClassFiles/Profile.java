@@ -9,10 +9,10 @@ public class Profile {
 	public DOB dateOfBirth;
 	public String address;
 	public Department department;
-	Profile(){
+	public Profile(){
 		
 	}
-	Profile(int id){
+	public Profile(int id){
 		//access database and set values
 		AccessProfile access = new AccessProfile();
 		access.getProfile(id, this);
@@ -36,8 +36,10 @@ public class Profile {
 	String getDepartment(){
 		return department.name;
 	}
-	void setProfile(Student_Profile profile,int id){
+	public void setProfile(Profile profile,int id,String pass){
 		SetProfile access = new SetProfile();
 		access.SetProfileInfo(profile, id);
+		LoginInfo login = new LoginInfo();
+		login.setInfo(id, pass);
 	}
 }

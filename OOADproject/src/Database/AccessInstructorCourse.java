@@ -52,7 +52,7 @@ public int getCourse(int id,int courseNumber) {
         //Retrieve by column name
     	return rs.getInt(column);
      }
-   // rs.close();
+    rs.close();
  }catch(SQLException se){
     //Handle errors for JDBC
     se.printStackTrace();

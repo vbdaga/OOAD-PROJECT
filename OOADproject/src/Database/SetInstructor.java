@@ -5,7 +5,7 @@ import ClassFiles.Time;
 
 import java.sql.*;
 
-public class AccessStudentCourse {
+public class SetInstructor {
  // JDBC driver name and database URL
 	static  String JDBC_DRIVER=null;
 	static  String DB_URL=null;
@@ -13,9 +13,9 @@ public class AccessStudentCourse {
 	static  String PASS =null;
 	Connection conn = null;
 	 Statement stmt = null;
-	public AccessStudentCourse(){
+	public SetInstructor(){
 JDBC_DRIVER = "com.mysql.jdbc.Driver";  
- DB_URL = "jdbc:mysql://localhost/students";
+ DB_URL = "jdbc:mysql://localhost/instructor";
 
  //  Database credentials
  USER = "root";
@@ -37,26 +37,17 @@ catch(Exception e){
 	
 }
 	}
-public int getCourse(int id,int courseNumber) {
- int val=0;
+public void SetInstructorInfo(int id) {
+ 
  
  try{
-    String column="course"+courseNumber;
-    String sql = "SELECT "+column+" FROM student WHERE  id="+id;
-    //System.out.println(sql);
+    
+    String sql = "INSERT INTO instructor VALUES ( "+id+" , 0 , 0 , 0 )";
    // System.out.println(sql);
-    ResultSet rs = stmt.executeQuery(sql);
+    stmt.executeUpdate(sql);
     //STEP 5: Extract data from result set
     
-    while(rs.next()){
-        //Retrieve by column name
-    	val = rs.getInt(column);
-    	//System.out.println(val);
-    	///rs.close();
-    	System.out.println(val);
-
-     }
-   // rs.close();
+    
  }catch(SQLException se){
     //Handle errors for JDBC
     se.printStackTrace();
@@ -65,8 +56,14 @@ public int getCourse(int id,int courseNumber) {
     e.printStackTrace();
  }finally{
     //finally block used to close resources
-	 return val;
+	 try{
+         if(conn!=null)
+            conn.close();
+      }catch(SQLException se){
+         se.printStackTrace();
+      }//end finally try
+   
  }//end try
  //System.out.println("Goodbye!");
 }//end main
-}//end AccessStudentCourse
+}//end SetInstructor

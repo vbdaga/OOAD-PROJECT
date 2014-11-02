@@ -5,7 +5,7 @@ import ClassFiles.Time;
 
 import java.sql.*;
 
-public class setStudent {
+public class SetStudent {
  // JDBC driver name and database URL
 	static  String JDBC_DRIVER=null;
 	static  String DB_URL=null;
@@ -13,7 +13,7 @@ public class setStudent {
 	static  String PASS =null;
 	Connection conn = null;
 	 Statement stmt = null;
-	public setStudent(){
+	public SetStudent(){
 JDBC_DRIVER = "com.mysql.jdbc.Driver";  
  DB_URL = "jdbc:mysql://localhost/students";
 
@@ -42,7 +42,7 @@ public void setStudentInfo(int id, Student_Profile profile) {
  
  try{
     
-    String sql = "INSERT INTO student VALUES ( "+id+" , 0 , 0 , 0 , \'"+profile.enrolledYear+"\')";
+    String sql = "INSERT INTO student VALUES ( "+id+" , 0 , 0 , 0 , 0 , \'"+profile.enrolledYear+"\')";
    // System.out.println(sql);
     stmt.executeUpdate(sql);
     //STEP 5: Extract data from result set

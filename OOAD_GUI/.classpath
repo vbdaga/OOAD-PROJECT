@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.ui.workbench_3.106.1.v20140827-1737.jar" sourcepath="C:/eclipse/plugins/org.eclipse.ui.workbench_3.106.1.v20140827-1737.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse/plugins/com.ibm.icu_52.1.0.v201404241930.jar" sourcepath="C:/eclipse/plugins/com.ibm.icu_52.1.0.v201404241930.jar"/>
 	<classpathentry kind="lib" path="C:/eclipse/plugins/org.eclipse.ui.forms_3.6.100.v20140422-1825.jar" sourcepath="C:/eclipse/plugins/org.eclipse.ui.forms_3.6.100.v20140422-1825.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/OOADproject"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -54,7 +54,7 @@ public void getProfile(int id, Profile profile) {
     	boolean gen = true;
     	int g=rs.getInt("gender");
     	if(g==0)gen=false;
-    	profile.gender=new Gender(gen);
+    	profile.gender=new Gender();
     	String dob=rs.getString("DOB");
     	String s[]=dob.split("-");
     	profile.dateOfBirth=new DOB();

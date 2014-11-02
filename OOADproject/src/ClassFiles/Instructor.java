@@ -1,6 +1,6 @@
 package ClassFiles;
 import Database.*;
-class Instructor {
+public class Instructor {
 	int facultyID ;
 	private Profile profile;
 	Course course[];
@@ -17,11 +17,17 @@ class Instructor {
 		}
 		profile = new Profile(id);
 	}
-	Profile getProfile(){
+	public Profile getProfile(){
 		return profile;
 	}
-	Course[] getCourses(){
+	public Course[] getCourses(){
 		return course;
+	}
+	void setInstructor(Profile prof,int id){
+		SetInstructor instruct = new SetInstructor();
+		instruct.SetInstructorInfo(id);
+		SetProfile access = new SetProfile();
+		access.SetProfileInfo(prof, id);
 	}
 }
 // direct access faculty id

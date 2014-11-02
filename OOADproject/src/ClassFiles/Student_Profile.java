@@ -14,6 +14,6 @@ public class Student_Profile extends Profile{
 		enrolledYear = access.getYear(id, this);
 	}
 	void setStudent_Profile(Student_Profile profile,int id){
-		setProfile(profile,id);
+		//setProfile((Profile)profile,id);
 	}
 }

@@ -9,7 +9,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
-
+import Database.*;
 public class Welcome {
 
 	protected Shell INSTI;
@@ -43,6 +43,7 @@ public class Welcome {
 				display.sleep();
 			}
 		}
+		
 	}
 
 	/**
@@ -96,9 +97,19 @@ public class Welcome {
 		loginButton.setVisible(false);
 		
 		final Button registerButton = new Button(INSTI, SWT.NONE);
+		registerButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Registration reg=new Registration();
+				INSTI.close();
+				reg.open();
+			}
+		});
 		registerButton.setBounds(183, 226, 63, 21);
 		registerButton.setText("Register");
 		registerButton.setVisible(false);
+		
+		
 		
 		Button instructorButton = new Button(INSTI, SWT.NONE);
 		instructorButton.setBounds(63, 23, 136, 25);
@@ -114,6 +125,7 @@ public class Welcome {
 				password.setVisible(true);
 				loginButton.setVisible(true);
 				registerButton.setVisible(true);
+				
 			}
 			
 		});
@@ -132,7 +144,27 @@ public class Welcome {
 				registerButton.setVisible(true);
 			}
 		});
-		
+		loginButton.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				String passw;
+				int user;
+				boolean isStudent=true;;
+				if(studentID.getVisible())user = Integer.parseInt(studentID.getText());
+				else {
+					user = Integer.parseInt(instructorID.getText());
+					isStudent = false;
+				}
+				passw = password.getText();
+				CheckLogin check = new CheckLogin();
+				if(check.check(user, passw)){
+					Profile_View next = new Profile_View(user, isStudent);
+					INSTI.close();
+					next.open();
+				}
+				else;//show error message 
+			}
+		});
 
 	}
 
