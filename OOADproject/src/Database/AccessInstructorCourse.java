@@ -38,7 +38,7 @@ catch(Exception e){
 }
 	}
 public int getCourse(int id,int courseNumber) {
- 
+ int course_id=0;
  
  try{
     String column="course"+courseNumber;
@@ -50,7 +50,7 @@ public int getCourse(int id,int courseNumber) {
     
     while(rs.next()){
         //Retrieve by column name
-    	return rs.getInt(column);
+    	 course_id = rs.getInt(column);
      }
     rs.close();
  }catch(SQLException se){
@@ -61,7 +61,7 @@ public int getCourse(int id,int courseNumber) {
     e.printStackTrace();
  }finally{
     //finally block used to close resources
-	 return 0;
+	 return course_id;
  }//end try
  //System.out.println("Goodbye!");
 }//end main

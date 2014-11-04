@@ -1,11 +1,12 @@
 package ClassFiles;
 
+import Database.AccessCourse;
 import Database.AccessInstructorCourse;
 import Database.AccessStudentCourse;
 import Database.SetStudent;
 
 public class Student {
-	int studentID;
+	public int studentID;
 	private Student_Profile profile;
 	private Course course[];
 	public Student(){
@@ -27,7 +28,7 @@ public class Student {
 		}
 		profile =new Student_Profile(id);
 	}
-	public Profile getProfile(){
+	public Student_Profile getProfile(){
 		return profile;
 	}
 	public Course[] getCourses(){
@@ -38,5 +39,10 @@ public class Student {
 		access.setStudentInfo(id, prof);
 		Student_Profile student = new Student_Profile();
 		student.setStudent_Profile(prof, id, pass);
+	}
+	public boolean setCourse(String courseName,int id){
+		AccessCourse access = new AccessCourse();
+		SetStudent setStu = new SetStudent();
+		return setStu.setStudentCourse(access.getCourseID(courseName),id);
 	}
 }

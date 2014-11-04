@@ -1,4 +1,5 @@
 package GUI;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.layout.FillLayout;
@@ -18,6 +19,7 @@ import java.awt.*;
 
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.ExpandBar;
@@ -26,9 +28,8 @@ import org.eclipse.wb.swt.SWTResourceManager;
 import org.eclipse.swt.events.KeyAdapter;
 import org.eclipse.swt.events.KeyEvent;
 
-import ClassFiles.Course;
-import ClassFiles.Profile;
 import ClassFiles.*;
+import Database.AccessCourse;
 public class Profile_View
 {
 	boolean isStu;
@@ -38,11 +39,14 @@ public class Profile_View
 		idDB=id;
 	}
 	protected Shell shlPutIdHere;
-	private static Text txtFrmDatabase;
 	private static Label bookDB1;
 	private static Label bookDB2;
 	private static Label bookDB3;
 	private static Label bookDB4;
+	private static CCombo combo;
+	private static Student student;
+	private static Instructor instruc;  
+	private static Course course[];
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -61,12 +65,11 @@ public class Profile_View
 	public void createContents (Display display) {
 		shlPutIdHere = new Shell();
 		shlPutIdHere.setSize(478, 748);
-		shlPutIdHere.setText("put id here");
 		shlPutIdHere.setLayout(new FillLayout());
 		//System.out.println(idDB);
 		
-		Student student = new Student (idDB);
-		Instructor instruc =new Instructor(idDB);
+		student = new Student (idDB);
+		instruc =new Instructor(idDB);
 		//start accessing database here and continue filling info in everything with "from database"
 		
 		CTabFolder tabFolder = new CTabFolder(shlPutIdHere, SWT.NONE);
@@ -123,10 +126,12 @@ public class Profile_View
 		Label enrYr = new Label(profileGroup, SWT.NONE);
 		enrYr.setText("Enrolled Year");
 		enrYr.setBounds(21, 467, 149, 35);
+		enrYr.setVisible(false);
 		
 		Label enrL = new Label(profileGroup, SWT.NONE);
 		enrL.setText("from database");
 		enrL.setBounds(176, 467, 234, 35);
+		enrL.setVisible(false);
 		
 		Label addr = new Label(profileGroup, SWT.NONE);
 		addr.setText("Address");
@@ -135,6 +140,18 @@ public class Profile_View
 		Label addrL = new Label(profileGroup, SWT.NONE);
 		addrL.setText("from database");
 		addrL.setBounds(176, 302, 234, 159);
+		
+		Button btnLogOut = new Button(profileGroup, SWT.NONE);
+		btnLogOut.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Welcome welcome = new Welcome();
+				shlPutIdHere.close();
+				welcome.open();
+			}
+		});
+		btnLogOut.setBounds(387, 10, 61, 25);
+		btnLogOut.setText("Log Out");
 		
 		
 		
@@ -145,22 +162,22 @@ public class Profile_View
 		Group regedCourGroup = new Group(tabFolder, SWT.NONE);
 		regedCourTab.setControl(regedCourGroup);
 		
-		Button course1Button = new Button(regedCourGroup, SWT.RADIO);
+		final Button course1Button = new Button(regedCourGroup, SWT.RADIO);
 		course1Button.setEnabled(false);
 		course1Button.setBounds(10, 10, 214, 25);
 		course1Button.setText("------");
 		
-		Button course3Button = new Button(regedCourGroup, SWT.RADIO);
+		final Button course3Button = new Button(regedCourGroup, SWT.RADIO);
 		course3Button.setEnabled(false);
 		course3Button.setText("------");
 		course3Button.setBounds(227, 10, 214, 25);
 		
-		Button course2Button = new Button(regedCourGroup, SWT.RADIO);
+		final Button course2Button = new Button(regedCourGroup, SWT.RADIO);
 		course2Button.setEnabled(false);
 		course2Button.setText("------");
 		course2Button.setBounds(10, 41, 214, 25);
 		
-		Button course4Button = new Button(regedCourGroup, SWT.RADIO);
+		final Button course4Button = new Button(regedCourGroup, SWT.RADIO);
 		course4Button.setEnabled(false);
 		course4Button.setText("------");
 		course4Button.setBounds(227, 41, 214, 25);
@@ -424,10 +441,12 @@ public class Profile_View
 		Group regCourGroup = new Group(tabFolder, SWT.NONE);
 		regCourTab.setControl(regCourGroup);
 		
-		CCombo combo = new CCombo(regCourGroup, SWT.BORDER);
-		combo.setItems(new String[] {"Introduction To Object Oriented Programming ", "Object Oriented Analysis And Design", "Optics And Electrodynamics", "Thermodynamics", "Data Structures", "Discrete Mathmatics"});
+		combo = new CCombo(regCourGroup, SWT.BORDER);
+		combo.setItems((new AccessCourse()).getCourseList());
 		combo.setText("Courses Available");
 		combo.setBounds(28, 39, 243, 30);
+		
+		
 		
 		Label lblCoursesDetails = new Label(regCourGroup, SWT.SEPARATOR | SWT.HORIZONTAL);
 		lblCoursesDetails.setBounds(59, 188, 381, 2);
@@ -471,46 +490,130 @@ public class Profile_View
 		booksL.setText("Reference Book");
 		booksL.setBounds(20, 412, 149, 35);
 		
-		Label IDDisp = new Label(regCourGroup, SWT.NONE);
+		final Label IDDisp = new Label(regCourGroup, SWT.NONE);
 		IDDisp.setText("from database");
 		IDDisp.setBounds(203, 207, 237, 35);
 		
-		Label deptDisp = new Label(regCourGroup, SWT.NONE);
+		final Label deptDisp = new Label(regCourGroup, SWT.NONE);
 		deptDisp.setText("from database");
 		deptDisp.setBounds(203, 248, 237, 35);
 		
-		Label termDisp = new Label(regCourGroup, SWT.NONE);
+		final Label termDisp = new Label(regCourGroup, SWT.NONE);
 		termDisp.setText("from database");
 		termDisp.setBounds(203, 289, 237, 35);
 		
-		Label crdtsDisp = new Label(regCourGroup, SWT.NONE);
+		final Label crdtsDisp = new Label(regCourGroup, SWT.NONE);
 		crdtsDisp.setText("from database");
 		crdtsDisp.setBounds(203, 330, 237, 35);
 		
-		Label clsnoDisp = new Label(regCourGroup, SWT.NONE);
+		final Label clsnoDisp = new Label(regCourGroup, SWT.NONE);
 		clsnoDisp.setText("from database");
 		clsnoDisp.setBounds(203, 371, 237, 35);
 		
-		txtFrmDatabase = new Text(regCourGroup, SWT.CENTER | SWT.MULTI);
-		txtFrmDatabase.setText("frm database");
-		txtFrmDatabase.setEditable(false);
-		txtFrmDatabase.setBounds(203, 412, 237, 106);
-		
-		Label lblSorryMaxStrength = new Label(regCourGroup, SWT.NONE);
+		final Label lblSorryMaxStrength = new Label(regCourGroup, SWT.NONE);
 		lblSorryMaxStrength.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
 		lblSorryMaxStrength.setBounds(92, 75, 248, 25);
-		lblSorryMaxStrength.setText("Sorry!!!! max strength reached.");
+		lblSorryMaxStrength.setText("Sorry!!!! You are not eligible.");
 		lblSorryMaxStrength.setVisible(false);
 		
-		Course course[];
-		if(isStu)course=student.getCourses();
-		else course = instruc.getCourses();
+		final Label bookDisp = new Label(regCourGroup, SWT.NONE);
+		bookDisp.setText("from database");
+		bookDisp.setBounds(203, 412, 237, 35);
 		
-		course1Button.setEnabled(true);
-		course2Button.setEnabled(true);
+		combo.addSelectionListener(new SelectionListener() {
+			
+			@Override
+			public void widgetSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				Course course = new Course(combo.getText());
+				IDDisp.setText(""+course.number);
+				deptDisp.setText(course.department);
+				termDisp.setText(""+course.term);
+				crdtsDisp.setText(""+course.credits);
+				clsnoDisp.setText(""+course.classroom_id);
+				bookDisp.setText(course.textbooks);
+			}
+			
+			@Override
+			public void widgetDefaultSelected(SelectionEvent arg0) {
+				// TODO Auto-generated method stub
+				IDDisp.setText("Not Available");
+				deptDisp.setText("Not Available");
+				termDisp.setText("Not Available");
+				crdtsDisp.setText("Not Available");
+				clsnoDisp.setText("Not Available");
+				bookDisp.setText("Not Available");
+			}
+		});
 		
- 
 		
+		if(isStu){
+			course=student.getCourses();
+		}
+		else {
+			course = instruc.getCourses();
+			regedCourTab.setText("Courses Taken");
+			regCourGroup.setEnabled(false);
+			regCourTab.dispose();
+		}
+		if(course[0].number!=0){course1Button.setEnabled(true);course1Button.setText(course[0].name);}
+		if(course[1].number!=0){course2Button.setEnabled(true);course2Button.setText(course[1].name);}
+		if(course[2].number!=0){course3Button.setEnabled(true);course3Button.setText(course[2].name);}
+		if(course.length==4&&course[3].number!=0){course4Button.setEnabled(true);course4Button.setText(course[3].name);}
+		
+		btnRegister.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				boolean registered = student.setCourse(combo.getText(),student.studentID);
+				
+				System.out.println(registered);
+				if(!registered){
+					lblSorryMaxStrength.setVisible(true);
+				}
+				else{
+					student= new Student(idDB);
+					instruc= new Instructor(idDB);
+					if(isStu)course=student.getCourses();
+					else course = instruc.getCourses();
+					if(course[0].number!=0){course1Button.setEnabled(true);course1Button.setText(course[0].name);}
+					if(course[1].number!=0){course2Button.setEnabled(true);course2Button.setText(course[1].name);}
+					if(course[2].number!=0){course3Button.setEnabled(true);course3Button.setText(course[2].name);}
+					if(course.length==4&&course[3].number!=0){course4Button.setEnabled(true);course4Button.setText(course[3].name);}
+				}
+			}
+		});
+		
+		
+		
+		
+		
+		if(isStu){
+			Student_Profile stuProf = student.getProfile();
+			fnam.setText(stuProf.firstName);
+			lnam.setText(stuProf.lastName);
+			if(stuProf.gender.g)genL.setText("Male");
+			else genL.setText("Female");
+			deptL.setText(stuProf.department.name);
+			dobL.setText(""+stuProf.dateOfBirth.day+"-"+stuProf.dateOfBirth.month+"-"+stuProf.dateOfBirth.year);
+			enrYr.setVisible(true);
+			enrL.setVisible(true);
+			enrL.setText(""+stuProf.enrolledYear);
+			addrL.setText(stuProf.address);
+			shlPutIdHere.setText("Welcome "+stuProf.firstName);
+			
+		}
+		else{
+			Profile prof = instruc.getProfile();
+			fnam.setText(prof.firstName);
+			lnam.setText(prof.lastName);
+			if(prof.gender.g)genL.setText("Male");
+			else genL.setText("Female");
+			deptL.setText(prof.department.name);
+			dobL.setText(""+prof.dateOfBirth.day+"-"+prof.dateOfBirth.month+"-"+prof.dateOfBirth.year);
+			addrL.setText(prof.address);
+			shlPutIdHere.setText("Welcome "+prof.firstName);
+		}
 		//when we load the profile we load all the data of the courses 
 		//and enable the radio buttons required and set there names
 		// and set the data of the courses in the corresponding group 
@@ -574,7 +677,7 @@ public class Profile_View
 			
 			if (!display.readAndDispatch ()) display.sleep ();
 		}
-		System.out.println("segese");
+		//System.out.println("segese");
 		display.dispose ();
 		
 	}

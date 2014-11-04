@@ -5,6 +5,8 @@ import ClassFiles.Time;
 
 import java.sql.*;
 
+import com.mysql.jdbc.UpdatableResultSet;
+
 public class SetStudent {
  // JDBC driver name and database URL
 	static  String JDBC_DRIVER=null;
@@ -66,4 +68,47 @@ public void setStudentInfo(int id, Student_Profile profile) {
  }//end try
  //System.out.println("Goodbye!");
 }//end main
+public boolean setStudentCourse(int course,int id) {
+	 boolean flag= false;
+	 
+	 try{
+	    String sql1 = "SELECT * FROM student WHERE id="+id+"";
+	    ResultSet rs=stmt.executeQuery(sql1);
+	    int noOfcolumns= rs.getMetaData().getColumnCount();
+	    int i=-1;
+	    while(rs.next()){
+	    for(i=0;i<noOfcolumns;i++){
+	    	System.out.println(rs.getInt(i+2));
+	    	if((rs.getInt(i+2))==0)break;
+	    }
+	    }
+	    if(i!=noOfcolumns&&i>=0){String sql = "UPDATE students.student SET course"+(i+1)+"="+course+" WHERE id="+id+"";
+	   // System.out.println(sql);
+	    	flag=true;
+	    	AccessCourse access = new AccessCourse();
+	    	flag=access.updateStudentStrength(course);
+	    	if(flag)stmt.executeUpdate(sql);
+	    }
+	    //STEP 5: Extract data from result set
+	    rs.close();
+	    
+	 }catch(SQLException se){
+	    //Handle errors for JDBC
+	    se.printStackTrace();
+	 }catch(Exception e){
+	    //Handle errors for Class.forName
+	    e.printStackTrace();
+	 }finally{
+	    //finally block used to close resources
+		 try{
+	         if(conn!=null)
+	            conn.close();
+	      }catch(SQLException se){
+	         se.printStackTrace();
+	      }//end finally try
+		 return flag;
+	   
+	 }//end try
+	 //System.out.println("Goodbye!");
+	}//end main
 }//end setStudent

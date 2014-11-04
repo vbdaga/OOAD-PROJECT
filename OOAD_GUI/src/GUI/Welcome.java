@@ -9,6 +9,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.graphics.Image;
 import Database.*;
 public class Welcome {
 
@@ -51,9 +52,10 @@ public class Welcome {
 	 */
 	protected void createContents() {
 		INSTI = new Shell();
+		INSTI.setImage(SWTResourceManager.getImage("C:\\Users\\vaibhav\\Pictures\\photos\\iitr_logo.png"));
 		INSTI.setSize(450, 300);
 		INSTI.setText("Institute Login");
-		
+		INSTI.setBackgroundImage(new Image(Display.getCurrent(),"C:\\Users\\vaibhav\\Pictures\\photos\\Watch-Dogs.jpg"));
 		
 		studentID = new Text(INSTI, SWT.BORDER);
 		studentID.setBounds(153, 98, 92, 21);
@@ -69,18 +71,21 @@ public class Welcome {
 		password.setEchoChar('*');
 		
 		final Label stuLabel = new Label(INSTI, SWT.NONE);
+		stuLabel.setAlignment(SWT.CENTER);
 		stuLabel.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 		stuLabel.setBounds(47, 98, 71, 21);
 		stuLabel.setText("Student ID");
 		stuLabel.setVisible(false);
 		
 		final Label instLabel = new Label(INSTI, SWT.NONE);
+		instLabel.setAlignment(SWT.CENTER);
 		instLabel.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 		instLabel.setBounds(47, 98, 71, 21);
 		instLabel.setText("Instructor ID");
 		instLabel.setVisible(false);
 		
 		final Label pass = new Label(INSTI, SWT.NONE);
+		pass.setAlignment(SWT.CENTER);
 		pass.setFont(SWTResourceManager.getFont("Segoe UI", 10, SWT.NORMAL));
 		pass.setBounds(47, 134, 71, 21);
 		pass.setText("Password");

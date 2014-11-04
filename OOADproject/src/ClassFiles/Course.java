@@ -16,6 +16,13 @@ public class Course {
 		//Time time = new Time();
 		number = id;
 		AccessCourse access=new AccessCourse();
-		access.getCourse(id, this);
+		access.getCourseByID(id, this);
+	}
+	public Course(String course_name){
+		//access database
+		//Time time = new Time();
+		name = course_name;
+		AccessCourse access=new AccessCourse();
+		access.getCourseByName(course_name, this);
 	}
 }

@@ -48,6 +48,7 @@ public class Registration
 	private Label errorLabel;
 	private Label enrolledLabel;
 	private Text enrolltext;
+	private Button button;
 	/**
 	 * @wbp.parser.entryPoint
 	 */
@@ -56,18 +57,20 @@ public class Registration
 		
 		isStudent = isStudenttem;
 		//System.out.println(isStudenttem);
+		
 		createContents(display);
-		shlPutIdHere.open();
+		//shlPutIdHere.open();
 		shlPutIdHere.layout();
-		while (!shlPutIdHere.isDisposed()) {
+		/*while (!shlPutIdHere.isDisposed()) {
 			System.out.println(display.readAndDispatch());
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
-		}
+		}*/
 		
 	}
 	public void createContents (Display display) {
+		
 		shlPutIdHere = new Shell(display);
 		shlPutIdHere.setSize(478, 748);
 		shlPutIdHere.setText("put id here");
@@ -150,6 +153,7 @@ public class Registration
 		RBfemale.setBounds(249, 179, 140, 25);
 		
 		Label welcm = new Label(profileGroup, SWT.NONE);
+		welcm.setFont(SWTResourceManager.getFont("Segoe UI", 13, SWT.NORMAL));
 		welcm.setAlignment(SWT.CENTER);
 		welcm.setBounds(178, 27, 105, 25);
 		welcm.setText("WELCOME");
@@ -186,6 +190,18 @@ public class Registration
 		enrolltext = new Text(profileGroup, SWT.NONE);
 		enrolltext.setBounds(176, 593, 264, 31);
 		enrolltext.setVisible(isStudent);
+		
+		button = new Button(profileGroup, SWT.NONE);
+		button.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				shlPutIdHere.close();
+				Welcome back  = new Welcome();
+				back.open();
+			}
+		});
+		button.setText("Back to login");
+		button.setBounds(10, 28, 75, 25);
 		profileGroup.setTabList(new Control[]{btnRegister, fNametxt, lNametxt, logintxt, passtxt, repasstxt, dpttxt, addresstxt, RBmale, RBfemale, ddCombo, mmCombo, yyCombo});
 		
 		
@@ -225,7 +241,6 @@ public class Registration
 			}
 		});
 		shlPutIdHere.open();
-		
 		while (!shlPutIdHere.isDisposed ()) {
 			if (!display.readAndDispatch ()) display.sleep ();
 		}

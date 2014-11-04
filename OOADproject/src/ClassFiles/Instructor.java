@@ -24,13 +24,13 @@ public class Instructor {
 		return profile;
 	}
 	public Course[] getCourses(){
+		System.out.println(course[0].name);
 		return course;
 	}
 	public void setInstructor(Profile prof,int id,String pass){
 		SetInstructor instruct = new SetInstructor();
 		instruct.SetInstructorInfo(id);
-		SetProfile access = new SetProfile();
-		access.SetProfileInfo(prof, id,false);
+		prof.setProfile(prof,id,pass);
 	}
 }
 // direct access faculty id

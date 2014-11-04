@@ -38,7 +38,7 @@ catch(Exception e){
 }
 	}
 public int getYear(int id, Student_Profile student) {
- 
+	int enroll =0;
  
  try{
     String sql = "SELECT enrolled_year FROM student WHERE  id="+id;
@@ -49,7 +49,7 @@ public int getYear(int id, Student_Profile student) {
     
     while(rs.next()){
         //Retrieve by column name
-    	return rs.getInt("enrolled_year");
+    	enroll =  rs.getInt("enrolled_year");
      }
    // rs.close();
  }catch(SQLException se){
@@ -60,7 +60,7 @@ public int getYear(int id, Student_Profile student) {
     e.printStackTrace();
  }finally{
     //finally block used to close resources
-	 return 0;
+	 return enroll;
  }//end try
  //System.out.println("Goodbye!");
 }//end main
