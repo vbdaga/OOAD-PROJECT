@@ -72,8 +72,9 @@ public class Registration
 	public void createContents (Display display) {
 		
 		shlPutIdHere = new Shell(display);
+		shlPutIdHere.setImage(SWTResourceManager.getImage("C:\\Users\\vaibhav\\Pictures\\photos\\iitr_logo.png"));
 		shlPutIdHere.setSize(478, 748);
-		shlPutIdHere.setText("put id here");
+		shlPutIdHere.setText("Registration");
  
 		FillLayout fl_shlPutIdHere = new FillLayout();
 		shlPutIdHere.setLayout(fl_shlPutIdHere);

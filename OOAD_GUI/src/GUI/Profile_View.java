@@ -17,6 +17,8 @@ import org.eclipse.swt.custom.StackLayout;
 
 import java.awt.*;
 
+import javax.swing.JOptionPane;
+
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -64,6 +66,7 @@ public class Profile_View
 	}
 	public void createContents (Display display) {
 		shlPutIdHere = new Shell();
+		shlPutIdHere.setImage(SWTResourceManager.getImage("C:\\Users\\vaibhav\\Pictures\\photos\\iitr_logo.png"));
 		shlPutIdHere.setSize(478, 748);
 		shlPutIdHere.setLayout(new FillLayout());
 		//System.out.println(idDB);
@@ -457,12 +460,6 @@ public class Profile_View
 		lblDetails.setText("Details");
 		
 		Button btnRegister = new Button(regCourGroup, SWT.CENTER);
-		btnRegister.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				
-			}
-		});
 		btnRegister.setBounds(28, 113, 105, 35);
 		btnRegister.setText("Register");
 		
@@ -569,9 +566,11 @@ public class Profile_View
 				
 				System.out.println(registered);
 				if(!registered){
-					lblSorryMaxStrength.setVisible(true);
+					lblSorryMaxStrength.setVisible(false);
+					JOptionPane.showMessageDialog(null, "You are too lazy for this course", "Failed", JOptionPane.ERROR_MESSAGE);
 				}
 				else{
+					lblSorryMaxStrength.setVisible(false);
 					student= new Student(idDB);
 					instruc= new Instructor(idDB);
 					if(isStu)course=student.getCourses();
@@ -580,6 +579,7 @@ public class Profile_View
 					if(course[1].number!=0){course2Button.setEnabled(true);course2Button.setText(course[1].name);}
 					if(course[2].number!=0){course3Button.setEnabled(true);course3Button.setText(course[2].name);}
 					if(course.length==4&&course[3].number!=0){course4Button.setEnabled(true);course4Button.setText(course[3].name);}
+					JOptionPane.showMessageDialog(null, "You have successfully registered", "Success", JOptionPane.INFORMATION_MESSAGE);
 				}
 			}
 		});

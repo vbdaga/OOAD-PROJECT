@@ -55,7 +55,7 @@ public class Welcome {
 		INSTI.setImage(SWTResourceManager.getImage("C:\\Users\\vaibhav\\Pictures\\photos\\iitr_logo.png"));
 		INSTI.setSize(450, 300);
 		INSTI.setText("Institute Login");
-		INSTI.setBackgroundImage(new Image(Display.getCurrent(),"C:\\Users\\vaibhav\\Pictures\\photos\\Watch-Dogs.jpg"));
+//		INSTI.setBackgroundImage(new Image(Display.getCurrent(),"C:\\Users\\vaibhav\\Pictures\\photos\\Watch-Dogs.jpg"));
 		
 		studentID = new Text(INSTI, SWT.BORDER);
 		studentID.setBounds(153, 98, 92, 21);
